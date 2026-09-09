@@ -1,4 +1,5 @@
 #include "BinaryImage.h"
+#include "StructuringElement.h"
 #include <iostream>
 
 int main()
@@ -18,5 +19,12 @@ int main()
                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     
     std::cout << image.to_text();
+
+
+
+    std::cout << rectangle(5, 5).to_text() << "\n";
+    std::cout << disk(2).to_text() << "\n";
+    std::cout << cross(2).to_text() << "\n";
+
     return 0;
 }
