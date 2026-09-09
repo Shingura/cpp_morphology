@@ -24,8 +24,8 @@ class BinaryImage
         static bool is_valid_matrix(const std::vector<std::vector<int>>& data);
 
     public:
-        // 构造大小为 row_count × col_count 的全 0 矩阵
-        BinaryImage(int row_count, int col_count);
+        // 构造大小为 row_count × col_count 的全 initial_value 矩阵
+        BinaryImage(int row_count, int col_count, int initial_value = 0);
 
         // 从二维数组直接构造，自动推导尺寸
         BinaryImage(const std::vector<std::vector<int>>& data);

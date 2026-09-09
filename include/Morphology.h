@@ -7,3 +7,9 @@ class Dilation
     public:
         BinaryImage apply(const BinaryImage& input_image, const StructuringElement& element) const;
 };
+
+class Erosion
+{
+    public:
+        BinaryImage apply(const BinaryImage& input_image, const StructuringElement& element) const;
+};

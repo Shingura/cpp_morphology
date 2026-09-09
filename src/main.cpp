@@ -20,6 +20,7 @@ int main()
                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
     
     std::cout << image.to_text() << std::endl;
+    
     Dilation dilation;
     std::cout << dilation.apply(image, rectangle(5, 5)).to_text() << "\n";
 

@@ -90,4 +90,3 @@ StructuringElement cross(int radius)
 
     return StructuringElement(mask, radius, radius);
 }
-

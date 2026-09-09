@@ -26,13 +26,14 @@ bool BinaryImage::is_valid_matrix(const std::vector<std::vector<int>>& data)
 }
 
 
-BinaryImage::BinaryImage(int row_count, int col_count)
+BinaryImage::BinaryImage(int row_count, int col_count, int initial_value)
 {
     if (row_count <= 0 || col_count <= 0) { throw std::invalid_argument("行高 / 列宽必须大于 0"); }
+    if (initial_value != 0 && initial_value != 1) { throw std::invalid_argument("写入值非 0 / 1"); }
 
     row_count_ = row_count;
     col_count_ = col_count;
-    data_ = std::vector<std::vector<int>>(row_count, std::vector<int>(col_count, 0));
+    data_ = std::vector<std::vector<int>>(row_count, std::vector<int>(col_count, initial_value));
 }
 
 BinaryImage::BinaryImage(const std::vector<std::vector<int>>& data)
@@ -73,7 +74,7 @@ int BinaryImage::read_pixel_with_fallback(int row, int col, int fallback) const
 void BinaryImage::write_pixel(int row, int col, int value)
 {
     if (!is_inside(row, col))     { throw std::out_of_range("像素坐标超出图像范围"); }
-    if (value != 0 && value != 1) { throw std::invalid_argument("写入值非 0 或 1"); }
+    if (value != 0 && value != 1) { throw std::invalid_argument("写入值非 0 / 1"); }
 
     data_[row][col] = value;
 }
