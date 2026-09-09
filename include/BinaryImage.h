@@ -20,9 +20,6 @@ class BinaryImage
         // 图像矩阵本身
         std::vector<std::vector<int>> data_;
 
-        // 检测指定坐标是否位于图像内
-        bool is_inside(int row, int col) const;
-
         // 检查输入矩阵是否合法（空矩阵、含非 0 / 1 元素、行宽不相等）
         static bool is_valid_matrix(const std::vector<std::vector<int>>& data);
 
@@ -47,6 +44,9 @@ class BinaryImage
 
         // 在 [row][col] 写入 value
         void write_pixel(int row, int col, int value);
+
+        // 检测指定坐标是否位于图像内
+        bool is_inside(int row, int col) const;
 
         // 以字符串形式返回图像
         std::string to_text() const;

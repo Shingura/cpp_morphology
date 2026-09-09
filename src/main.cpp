@@ -1,5 +1,6 @@
 #include "BinaryImage.h"
 #include "StructuringElement.h"
+#include "Morphology.h"
 #include <iostream>
 
 int main()
@@ -20,11 +21,8 @@ int main()
     
     std::cout << image.to_text();
 
-
-
-    std::cout << rectangle(5, 5).to_text() << "\n";
-    std::cout << disk(2).to_text() << "\n";
-    std::cout << cross(2).to_text() << "\n";
+    Dilation dilation;
+    std::cout << dilation.apply(image, rectangle(3, 3)).to_text() << "\n";
 
     return 0;
 }
