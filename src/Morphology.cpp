@@ -20,7 +20,7 @@ namespace
                 int output_row = input_row + element_row - element.anchor_row();
                 int output_col = input_col + element_col - element.anchor_col();
 
-                // 盖到图像外的部分直接丢弃，相当于把图像外当作背景
+                // 盖到图像外的部分直接丢弃
                 if (!output_image.is_inside(output_row, output_col)) continue;
 
                 output_image.write_pixel(output_row, output_col, 1);
@@ -37,13 +37,13 @@ namespace
         {
             for (int element_col = 0; element_col < element.col_count(); ++element_col)
             {
-                // SE 上这一格是 0，不参与运算，直接跳过
+                // SE 上这一格是 0，则不参与运算，直接跳过
                 if (!element.is_active(element_row, element_col)) continue;
 
                 int input_row = output_row + element_row - element.anchor_row();
                 int input_col = output_col + element_col - element.anchor_col();
 
-                // 发现一个背景，答案立刻确定，剩下的格子不用再看
+                // 发现一个 0 即终止
                 if (input_image.read_pixel_with_fallback(input_row, input_col, 0) == 0) { return false; }
             }
         }

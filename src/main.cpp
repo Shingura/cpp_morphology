@@ -3,8 +3,12 @@
 #include "Morphology.h"
 #include <iostream>
 
+// 程序入口：演示三个形态学操作的结果。
+// 完整的测试用例（含说明、前后图像对比、自动检查）见 tests/test_morphology.cpp。
+
 int main()
 {
+    // 题目给出的 12x12 输入图像
     BinaryImage image({
                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
@@ -18,11 +22,33 @@ int main()
                         {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
-    
-    std::cout << image.to_text() << std::endl;
-    
+
+    // 腐蚀用的输入：中央放一个 5x5 实心方块。
+    // 不用上面那张图，是因为它的线条只有 1~2 像素宽，3x3 腐蚀会把它们全部吃掉（结果全 0）。
+    BinaryImage block_image({
+                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0},
+                        {0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0},
+                        {0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0},
+                        {0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0},
+                        {0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}});
+
     Dilation dilation;
-    std::cout << dilation.apply(image, rectangle(5, 5)).to_text() << "\n";
+    Erosion erosion;
+
+    std::cout << "【输入图像】（题目给出）\n" << image.to_text() << "\n";
+    std::cout << "【dilation 1】5x5 方形结构元素，四角为 90 度尖角\n"
+              << dilation.apply(image, rectangle(5, 5)).to_text() << "\n";
+    std::cout << "【dilation 2】5x5 圆形结构元素，四角为圆弧\n"
+              << dilation.apply(image, disk(2)).to_text() << "\n";
+    std::cout << "【erosion】3x3 方形结构元素，输入为中央的 5x5 实心方块\n"
+              << erosion.apply(block_image, rectangle(3, 3)).to_text() << "\n";
 
     return 0;
 }
